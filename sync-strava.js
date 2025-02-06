@@ -2,13 +2,12 @@ const axios = require("axios");
 const { Client } = require("@notionhq/client");
 
 // Configuración de Strava
-const STRAVA_ACCESS_TOKEN = "e8235944b6476de51ac55ce60d615ceb6a76ca53";
-const stravaUrl = "https://www.strava.com/api/v3/athlete/activities";
+const STRAVA_ACCESS_TOKEN = 'tu_token_de_acceso_de_strava';
+const stravaUrl = 'https://www.strava.com/api/v3/athlete/activities';
 
 // Configuración de Notion
-const NOTION_ACCESS_TOKEN =
-  "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";
-const NOTION_DATABASE_ID = "18fad089a85b806ead00f35c5456f74a";
+const NOTION_ACCESS_TOKEN = 'tu_token_de_acceso_de_notion';
+const NOTION_DATABASE_ID = 'tu_id_de_base_de_datos_de_notion';
 const notion = new Client({ auth: NOTION_ACCESS_TOKEN });
 
 // Obtener actividades de Strava
@@ -19,7 +18,6 @@ axios
   .then((response) => {
     const activities = response.data;
     activities.forEach(async (activity) => {
-      // Formatear los datos para Notion
       // Convierte metros a kilómetros
       const distanceInKilometers = parseFloat(
         (activity.distance / 1000).toFixed(2)
@@ -59,9 +57,6 @@ axios
                 date: {
                   start: activity.start_date,
                 },
-              },
-              Elapsed: {
-                number: elapsedTimeInHours,
               },
               "Strava ID": {
                 rich_text: [
